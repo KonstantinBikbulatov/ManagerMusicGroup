@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ManagerMusicGroup.View.EditTourGroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ManagerMusicGroup.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+                <Button Panel.ZIndex="1" Width="100" Height="30" Margin="0 0 10 0" Content="Отмена" Background="White"
+                    CommandParameter="ChangeMode"
+                    Command="{Binding EditCommand}"/>
+                <Button Panel.ZIndex="1" Width="100" Height="30" Margin="0 0 10 0" Content="Сохранить" Background="White"
+                    CommandParameter="Save"
+                    Command="{Binding EditCommand}"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBox Text="{Binding NewTour.City.Name}"  Name="City" Margin="10" Width="150"/>
+                <TextBox Text="{Binding NewTour.DateStart}" Margin="10" Width="40"/>
+                <TextBox Text="{Binding NewTour.DateEnd}" Margin="10" Width="100"/>
+                <Button Margin="10" Width="100" CommandParameter="Add" Click="Click_Add" Content="Добавить" Command="{Binding EditCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding SourceCollectionDetail}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox Text="{Binding City.Name}" Margin="10" Width="150"/>
+                            <TextBox Text="{Binding DateStart}" Margin="10" Width="150"/>
+                            <TextBox Text="{Binding DateEnd}" Margin="10" Width="150"/>
+                            <Button Margin="10" Width="100" CommandParameter="{Binding City.Name}" Content="Удалить" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="ManagerMusicGroup.View.SongGroupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ManagerMusicGroup.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="60"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Margin="0 10 0 0">
+            <Button Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="White"
+                    CommandParameter="ChangeMode"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=DataContext.EditCommand}">
+                <materialDesign:PackIcon Kind="PencilOutline" Height="35" Width="35" Margin="-15"/>
+            </Button>
+            <Button Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 0 10 0" Background="White"
+                    CommandParameter="Report"
+                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StackPanel}}, Path=DataContext.EditCommand}">
+                <materialDesign:PackIcon Kind="FileDocumentPlus" Height="35" Width="35" Margin="-15"/>
+            </Button>
+        </StackPanel>
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding SourceCollectionDetail}" Grid.ColumnSpan="2" Margin="0 10 0 0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0 10 0 0">
+                            <Button Background="White" BorderThickness="0 0 0 0" Margin="0 2 0 0"  Width="300"  CommandParameter="{Binding Id}" Content="{Binding Name}" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DetailSongCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

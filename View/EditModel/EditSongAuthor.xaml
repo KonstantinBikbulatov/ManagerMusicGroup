@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="ManagerMusicGroup.View.EditSongAuthor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ManagerMusicGroup.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
+            <Button Panel.ZIndex="1" Width="100" Height="30" Margin="0 0 10 0" Content="Отмена" Background="White"
+                    CommandParameter="ChangeMode"
+                    Command="{Binding EditCommand}"/>
+            <Button Panel.ZIndex="1" Width="100" Height="30" Margin="0 0 10 0" Content="Сохранить" Background="White"
+                    CommandParameter="Save"
+                    Command="{Binding EditCommand}"/>
+        </StackPanel>
+        <TextBlock Text="Композиторы" Grid.Row="1" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Top" Width="300">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBox Text="{Binding Composer.Name}" Name="NameComposer"  Margin="10" Width="150"/>
+                <Button Margin="10" Width="100" CommandParameter="AddComposer" Click="Click_Composer" Content="Добавить" Command="{Binding EditCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="3">
+            <ItemsControl ItemsSource="{Binding SourceCollectionComposer}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="Name" Text="{Binding Composer.Name}" TextAlignment="Left" Margin="40 20 0 0" Width="300"/>
+                            <Button Margin="10" Width="100" CommandParameter="{Binding Composer.Name}" Content="Удалить" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteComposerCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <TextBlock Text="Авторы" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Width="300">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBox Text="{Binding Author.Name}" Name="NameAuthor" Margin="10" Width="150"/>
+                <Button Margin="10" Width="100" CommandParameter="AddAuthor"  Click="Click_Author" Content="Добавить" Command="{Binding EditCommand}"/>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row="3" Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding SourceCollectionAuthor}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBox x:Name="Name" Text="{Binding Author.Name}" TextAlignment="Left" Margin="40 20 0 0" Width="300"/>
+                            <Button Margin="10" Width="100" CommandParameter="{Binding Name}" Content="Удалить" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteAuthorCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
